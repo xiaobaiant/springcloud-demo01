@@ -28,12 +28,11 @@ public class OrderController {
     @GetMapping("/consumer/payment/create")//客户端用的浏览器是get请求,但是底层实现使用的是post调用服务端8001
     public CommonResult create(Payment payment) {
         log.info("order80-------->重定向的端口1" + PAYMENTSRV_URL + "/payment/create");
-        return restTemplate.patchForObject(PAYMENTSRV_URL + "/payment/create", payment, CommonResult.class);
+        return restTemplate.postForObject(PAYMENTSRV_URL + "/payment/create", payment, CommonResult.class);
     }
 
     @GetMapping("/consumer/payment/get/{id}")
     public CommonResult getPayment(@PathVariable Long id) {
-        log.info("order80-------->重定向的端口2" + PAYMENTSRV_URL + "/payment/get");
         return restTemplate.getForObject(PAYMENTSRV_URL + "/payment/get/" + id, CommonResult.class, id);
     }
 }
